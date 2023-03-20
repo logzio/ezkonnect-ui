@@ -1,6 +1,6 @@
 import { FunctionComponent } from 'react';
 
-const NotFound: FunctionComponent = () => {
+const Home: FunctionComponent = () => {
     return <div>Homepage</div>;
 };
-export default NotFound;
+export default Home;

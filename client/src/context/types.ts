@@ -1,0 +1,34 @@
+export const SET_LOG_PODS = 'SET_LOG_TYPE';
+export const SET_METRIC_PODS = 'SET_METRIC_TYPE';
+export const SET_TRACES_PODS = 'SET_TRACES_TYPE';
+
+export const SET_ALL_PODS = 'SET_ALL_PODS';
+
+export const GET_LOG_LIST = 'GET_LOG_LIST';
+export const ADD_LOG_TYPE = 'ADD_LOG_TYPE';
+export const ADD_LOG_TYPE_TO_LIST = 'ADD_LOG_TYPE_TO_LIST';
+
+export const UPDATE_LOG_TYPE = 'UPDATE_LOG_TYPE';
+
+
+export const DEPLOY_LOG_TYPE = 'DEPLOY_LOG_TYPE';
+export const ROLLBACK_LOG_TYPE = 'ROLLBACK_LOG_TYPE';
+
+
+
+export const ERROR_MESSAGE = 'ERROR_MESSAGE';
+export const ADD_BULK_LOG_TYPE = 'ADD_BULK_LOG_TYPE';
+export const DEPLOY_BULK_LOG_TYPE = 'DEPLOY_BULK_LOG_TYPE';
+export const ROLLBACK_BULK_LOG_TYPE = 'ROLLBACK_BULK_LOG_TYPE';
+
+
+
+export const UPDATE_POD = 'UPDATE_POD'
+export const UPDATE_POD_BULK = 'UPDATE_POD_BULK';
+
+export const SET_NOTIFICATION = 'SET_NOTIFICATION';
+export const REMOVE_NOTIFICATION = 'REMOVE_NOTIFICATION';
+
+export const UPDATE_BULK_POD_LOG = 'UPDATE_BULK_POD_LOG';
+
+

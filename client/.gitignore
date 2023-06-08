@@ -25,6 +25,3 @@ dist-ssr
 
 .env
 backup/*
-
-src/podsLocal
-data.json

@@ -1,7 +1,7 @@
 import React, { FunctionComponent, useContext, useState } from 'react';
 import Button from '../../components/Button';
-import { PodContext } from '../../context/pods/podContext';
 import { ReactComponent as SpinnerIcon } from '../../assets/icons/spinner.svg';
+import { LogsContext } from '../../context/logsContext/logsContext';
 
 interface IProps {
     type: string;
@@ -23,7 +23,7 @@ const LogsButtonController: FunctionComponent<IProps> = ({
 }) => {
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const { addLogTypeAPI, updateLogTypeBulkAPI, updateLogTypeBulk } =
-        useContext(PodContext);
+        useContext(LogsContext);
     const onClickChangeLogType = async (
         podName: string,
         isDelete?: boolean,

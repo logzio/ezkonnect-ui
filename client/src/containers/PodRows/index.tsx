@@ -7,7 +7,6 @@ import Select from '../../components/Select';
 import InputSelect from '../../components/InputSelect';
 import RowContoller from '../RowController';
 import LanguageLogo from '../LanguageLogo';
-import { PodContext } from '../../context/pods/podContext';
 import { IPod } from '../../utils/interfaces';
 import { displayNamespaces } from '../../utils/parsePodData';
 import LogsButtonController from '../LogsButtonController';
@@ -15,6 +14,8 @@ import {
     converLanguageName,
     convertArrayToSelectOption,
 } from '../../utils/covert';
+import { LogsContext } from '../../context/logsContext/logsContext';
+import { TracesContext } from '../../context/tracesContext/tracesContext';
 
 const IconArrow = styled.svg`
     transform: rotate(270deg);
@@ -51,17 +52,14 @@ interface IProps {
 
 export const PodRows: FunctionComponent<IProps> = ({ podsData, type }) => {
     const [itemExpend, setItemExpend] = useState<IExpendList>({});
+    const { addServiceNameToTheList, updateServiceNameBulk } =
+        useContext(TracesContext);
     const {
+        logList,
         updateLogTypePod,
         updateLogTypeBulkToList,
-        logList,
-        serviceNameList,
         addLogTypeToTheList,
-        addServiceNameToTheList,
-        updateServiceNameBulk,
-        addLogTypeAPI,
-    } = useContext(PodContext);
-
+    } = useContext(LogsContext);
     const onChangeSelectBulk = async (
         applicationName: string,
         log_type: string,

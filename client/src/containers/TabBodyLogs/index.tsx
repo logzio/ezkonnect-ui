@@ -2,15 +2,15 @@ import React, { FunctionComponent, useContext } from 'react';
 import Table from '../../components/Table';
 import Tab from '../../components/Tab';
 import { PodRows } from '../PodRows';
-import { PodContext } from '../../context/pods/podContext';
 import Tooltip from '../../components/Tooltip';
+import { LogsContext } from '../../context/logsContext/logsContext';
 
 interface IProps {
     onClick?: () => void;
 }
 
 const TabBodyLogs: FunctionComponent<IProps> = () => {
-    const { podsState } = useContext(PodContext);
+    const { logsPods } = useContext(LogsContext);
     return (
         <Tab>
             <Table.TableWrapper
@@ -29,9 +29,7 @@ const TabBodyLogs: FunctionComponent<IProps> = () => {
                     <Table.TableHeaderCell> </Table.TableHeaderCell>
                 </Table.TableHeader>
                 <Table.TableBody>
-                    {podsState.logsPods && (
-                        <PodRows podsData={podsState.logsPods} type='logs' />
-                    )}
+                    {logsPods && <PodRows podsData={logsPods} type='logs' />}
                 </Table.TableBody>
             </Table.TableWrapper>
         </Tab>

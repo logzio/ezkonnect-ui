@@ -1,13 +1,7 @@
 import React, { FunctionComponent } from 'react';
 import styled from 'styled-components';
 import CloseIconSvg from '../../assets/icons/close-icon.svg';
-
-enum NotificationStatus {
-    'Success',
-    'Info',
-    'Warning',
-    'Danger',
-}
+import { NotificationStatus } from '../../utils/interfaces';
 
 interface IProps {
     message: string;

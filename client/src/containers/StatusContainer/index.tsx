@@ -1,18 +1,8 @@
-import React, {
-    FunctionComponent,
-    useState,
-    useEffect,
-    useContext,
-} from 'react';
+import React, { FunctionComponent, useContext } from 'react';
 import styled from 'styled-components';
 import Notification from '../../components/Notification';
-import { PodContext } from '../../context/pods/podContext';
-enum NotificationStatus {
-    'Success',
-    'Info',
-    'Warning',
-    'Danger',
-}
+import { NotificationContext } from '../../context/notificationsContext/notificationContext';
+import { NotificationStatus } from '../../utils/interfaces';
 
 const TabWrapper = styled.div`
     display: flex;
@@ -27,7 +17,8 @@ interface INotification {
 }
 
 const StatusContainer: FunctionComponent = () => {
-    const { notifications, removeNotifications } = useContext(PodContext);
+    const { notifications, removeNotifications } =
+        useContext(NotificationContext);
     const closeButtonHandler = (idx: number) => {
         removeNotifications(idx);
     };

@@ -1,6 +1,11 @@
 import { IPod, IParsedLogsData } from "./interfaces";
 
-export const getAllLogTypes = (podsArray: IPod[]) => {
+/**
+ * Function recieve a array of Pods from API, extracting all possible log types
+ * @param  {IPod[]} podsArray 
+ * @returns {string[]} logArray 
+ */
+export const getAllLogTypes = (podsArray: IPod[]): string[] => {
 	const logArray: string[] = [];
 
 	podsArray.forEach(pod => {
@@ -14,7 +19,12 @@ export const getAllLogTypes = (podsArray: IPod[]) => {
 	return logArray
 }
 
-export const getAllServiceNames = (podsArray: IPod[]) => {
+/**
+ * Function get array of Pods what was received from API and extracts all possible service_names
+ * @param  {IPod[]} podsArray
+ * @returns {string[]} serviceNameArray
+ *  */
+export const getAllServiceNames = (podsArray: IPod[]): string[] => {
 	const serviceNameArray: string[] = [];
 	podsArray.forEach(pod => {
 		if (pod.container_name && !serviceNameArray.includes(pod.container_name)) {
@@ -25,12 +35,19 @@ export const getAllServiceNames = (podsArray: IPod[]) => {
 	return serviceNameArray;
 }
 
+/**
+ * Function recieve a array of Pods from API, and filters them based on 3 object fields, 
+ * and Primary field is main field if it's not exists set is as Undetected
+ * @param  {IPod[]} podsArray
+ * @param  {string} filterFieldPrimary
+ * @param  {string} filterFieldSecondary
+ * @param  {string} filterFieldThird
+ * @returns IParsedLogsData
+ */
 export const multipleParseHandler = (podsArray: IPod[], filterFieldPrimary: string, filterFieldSecondary: string, filterFieldThird: string): IParsedLogsData => {
 	const allLogTypes = getAllLogTypes(podsArray);
-	const allServiceNames = getAllServiceNames(podsArray);
 
 	const parsedData: IParsedLogsData = {};
-
 
 	podsArray.forEach(data => {
 		if (data[filterFieldPrimary] != null) {
@@ -81,7 +98,13 @@ export const multipleParseHandler = (podsArray: IPod[], filterFieldPrimary: stri
 
 	return parsedData;
 }
-
+/**
+ * Function recieve a array of Pods from API, and filters them based on 1 object field, 
+ * if it's not exists set is as Undetected
+ * @param  {IPod[]} podsArray
+ * @param  {string} filterField
+ * @returns IParsedLogsData
+ */
 export const parseHandler = (podsArray: IPod[], filterField: string): IParsedLogsData => {
 
 	const allLogTypes = getAllLogTypes(podsArray);
@@ -138,7 +161,12 @@ export const parseHandler = (podsArray: IPod[], filterField: string): IParsedLog
 
 	return parsedData;
 }
-
+/**
+ * Display namesspaces with in the detected pods was more that 1 namspace display string of joining them with space. 
+ * If it's more that 2 display message and N more. 
+ * @param  {string[]} namespaces
+ * @returns string
+ */
 export const displayNamespaces = (namespaces: string[]): string => {
 	const uniqueNamespaces = namespaces.filter((element, index) => {
 		return namespaces.indexOf(element) === index;

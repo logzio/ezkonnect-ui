@@ -6,6 +6,21 @@ EZ-Konnect is a deployment and configuration tool designed to assist customers i
 
 To run locally with dump data
 
+1. Need to install client dependencies go to project folder:
+
+```
+cd client
+npm install
+```
+
+2. Need to install backend dependencies go to project folder:
+
+```
+npm install
+```
+
+3. After installation of all dependencies, please run a command:
+
 ```
  npm run dev-server-client
 ```

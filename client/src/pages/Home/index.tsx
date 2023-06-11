@@ -8,17 +8,12 @@ import Layout from '../../components/Layout';
 import styled from 'styled-components';
 import Text from '../../components/Text';
 import TabBodyLogs from '../../containers/TabBodyLogs';
-import TabBodyMetrics from '../../containers/TabBodyMetrics';
 import TabBodyTraces from '../../containers/TabBodyTraces';
-import StatusContainer from '../../containers/StatusContainer';
-import { PodContext } from '../../context/pods/podContext';
-
-enum NotificationStatus {
-    'Success',
-    'Info',
-    'Warning',
-    'Danger',
-}
+import { NotificationContext } from '../../context/notificationsContext/notificationContext';
+import { LogsContext } from '../../context/logsContext/logsContext';
+import { TracesContext } from '../../context/tracesContext/tracesContext';
+import { NotificationStatus } from '../../utils/interfaces';
+import api from '../../utils/api';
 
 const HomePageWrapper = styled.div`
     display: flex;
@@ -54,16 +49,29 @@ const TabElement = styled.div`
 `;
 
 type TabVariable = 'Logs' | 'Metrics' | 'Traces';
-type Notification = {
-    message: string;
-    type: NotificationStatus.Success;
-    title: string;
-};
+
 const Home: FunctionComponent = () => {
     const [activeTab, setActiveTab] = useState<TabVariable>('Logs');
-    const { getAllPods } = useContext(PodContext);
+    const { setNotifications } = useContext(NotificationContext);
+    const { getAllParsedLogsPods } = useContext(LogsContext);
+    const { getAllParsedTracesPods } = useContext(TracesContext);
+
     useEffect(() => {
-        getAllPods();
+        const fetchData = async () => {
+            return await api.getPods();
+        };
+        fetchData()
+            .then((podsItems) => {
+                getAllParsedLogsPods(podsItems);
+                getAllParsedTracesPods(podsItems);
+            })
+            .catch((err) => {
+                console.log(err);
+                setNotifications(
+                    `Can't fetch applications. Error:${err}`,
+                    NotificationStatus.Danger,
+                );
+            });
     }, []);
 
     const renderTab = () => {

@@ -2,7 +2,7 @@ import React, { FunctionComponent, useContext, useState } from 'react';
 import Button from '../../components/Button';
 import { ReactComponent as SpinnerIcon } from '../../assets/icons/spinner.svg';
 
-import { PodContext } from '../../context/pods/podContext';
+import { TracesContext } from '../../context/tracesContext/tracesContext';
 
 interface IProps {
     type: string;
@@ -17,7 +17,7 @@ const RowContoller: FunctionComponent<IProps> = ({
     isTouched,
     status,
 }) => {
-    const { updatePod, updatePodAPI } = useContext(PodContext);
+    const { updatePod, updatePodAPI } = useContext(TracesContext);
     const [isLoading, setIsLoading] = useState<boolean>(false);
 
     const onClickHandler = async (status: boolean) => {

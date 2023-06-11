@@ -60,10 +60,15 @@ type ListType = {
 }
 
 export interface IContextState {
-	logsPods: IParsedItem[] | null,
-	tracesPods: IParsedItem[] | null,
-	podsItems: IPod[] | null,
-	logList: ListType[],
-	serviceNameList: ListType[];
 	notifications: INotification[],
+}
+
+export interface ILogsContextState {
+	logsPods: IParsedItem[] | null,
+	logList: ListType[],
+
+}
+export interface ITracesContextState {
+	tracesPods: IParsedItem[] | null,
+	serviceNameList: ListType[];
 }

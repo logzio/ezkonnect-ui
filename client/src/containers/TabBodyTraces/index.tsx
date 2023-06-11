@@ -1,17 +1,17 @@
 import React, { FunctionComponent, useContext } from 'react';
 import Table from '../../components/Table';
 import Tab from '../../components/Tab';
-import { PodContext } from '../../context/pods/podContext';
 import { PodRows } from '../PodRows';
 import Tooltip from '../../components/Tooltip';
+import { TracesContext } from '../../context/tracesContext/tracesContext';
 
 interface IProps {
     onClick?: () => void;
 }
 
 const TabBodyTraces: FunctionComponent<IProps> = () => {
-    const { podsState } = useContext(PodContext);
-
+    const { tracesPods } = useContext(TracesContext);
+    console.log(tracesPods);
     return (
         <Tab>
             <Table.TableWrapper
@@ -30,11 +30,8 @@ const TabBodyTraces: FunctionComponent<IProps> = () => {
                     <Table.TableHeaderCell> </Table.TableHeaderCell>
                 </Table.TableHeader>
                 <Table.TableBody>
-                    {podsState.tracesPods && (
-                        <PodRows
-                            podsData={podsState.tracesPods}
-                            type='traces'
-                        />
+                    {tracesPods && (
+                        <PodRows podsData={tracesPods} type='traces' />
                     )}
                 </Table.TableBody>
             </Table.TableWrapper>

@@ -92,12 +92,10 @@ export const PodRows: FunctionComponent<IProps> = ({ podsData, type }) => {
     };
 
     const renderDetectedPods = () => {
-        console.log(podsData);
         return Object.keys(podsData).map((key: string) => {
             if (key === 'Undetected') {
                 return;
             }
-            console.log(podsData[key].podsItem);
             return (
                 <div key={`${key}`}>
                     <Table.TableRow>
@@ -120,7 +118,12 @@ export const PodRows: FunctionComponent<IProps> = ({ podsData, type }) => {
                             <LanguageLogo identifier={key} />
                             <Text tag='p'>
                                 <b>{converLanguageName(key)} </b> was detected
-                                in <b>{podsData[key].pods} Pods</b>
+                                in{' '}
+                                <b>
+                                    {podsData[key].pods > 1
+                                        ? '1 App'
+                                        : `${podsData[key].pods} Apps`}
+                                </b>
                             </Text>
                         </Table.Cell>
                         <Table.Cell>
@@ -151,6 +154,7 @@ export const PodRows: FunctionComponent<IProps> = ({ podsData, type }) => {
                                         podsData[key].service_name_default ||
                                         serviceNameList[0].name
                                     }
+                                    fieldDisabled={true}
                                     description='Create new Service name'
                                     placeHolder={'Service name'}
                                     onChangeValue={(e: React.FormEvent) => {

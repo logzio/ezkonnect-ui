@@ -19,6 +19,11 @@ const ButtonYellow = styled.button`
     &:active {
         background-color: rgb(198, 154, 74);
     }
+    &:disabled {
+        opacity: 0.7;
+        background: rgb(231, 231, 231);
+        cursor: no-drop;
+    }
 `;
 const ButtonWhite = styled.button`
     font-style: normal;

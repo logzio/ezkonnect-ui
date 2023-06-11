@@ -58,7 +58,6 @@ export const PodState: React.FC<IProps> = ({ children }) => {
         );
         const allLogTypes = getAllLogTypes(podsItems);
         const allServiceNames = getAllServiceNames(podsItems);
-        console.log(parsedTrace);
         dispatch({ type: SET_TRACES_PODS, payload: parsedTrace });
         dispatch({ type: SET_LOG_PODS, payload: parsedLogs });
         dispatch({ type: GET_LOG_LIST, payload: allLogTypes });
@@ -94,7 +93,7 @@ export const PodState: React.FC<IProps> = ({ children }) => {
                 },
             );
             const response = await api.updatePod(podsItems);
-            if (!response.ok) {
+            if (response.length && response.length === 0) {
                 throw new Error(
                     ` Error ${response.status}: ${response.statusText}`,
                 );
@@ -175,7 +174,7 @@ export const PodState: React.FC<IProps> = ({ children }) => {
                 const response = await api.updateLogPod(
                     updatedPodsWithNewLogTypes,
                 );
-                if (!response.ok) {
+                if (response.length && response.length === 0) {
                     throw new Error(
                         ` Error ${response.status}: ${response.statusText}`,
                     );
@@ -245,7 +244,7 @@ export const PodState: React.FC<IProps> = ({ children }) => {
                     };
 
                     const response = await api.updateLogPod([podItemToSend]);
-                    if (!response.ok) {
+                    if (response.length && response.length === 0) {
                         throw new Error(
                             ` Error ${response.status}: ${response.statusText}`,
                         );

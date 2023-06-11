@@ -13,8 +13,8 @@ class PodController implements Controller {
 
 	private initializeRoutes() {
 		this.router.get(`${this.path}/state`, this.getAllPods);
-		this.router.get(`${this.path}/annotate/traces`, this.updateTraces);
-		this.router.get(`${this.path}/annotate/logs`, this.updateLogs);
+		this.router.post(`${this.path}/annotate/traces`, this.updateTraces);
+		this.router.post(`${this.path}/annotate/logs`, this.updateLogs);
 
 	}
 
@@ -28,6 +28,7 @@ class PodController implements Controller {
 					return response.data;
 				})
 				.catch((err) => {
+					console.log(err);
 					throw err;
 				});
 			res.statusCode = 200;
@@ -50,6 +51,8 @@ class PodController implements Controller {
 				)
 				.then((response) => response.data)
 				.catch((err) => {
+					console.log(err);
+
 					throw err;
 				});
 			res.statusCode = 200;
@@ -69,6 +72,8 @@ class PodController implements Controller {
 				)
 				.then((response) => response.data)
 				.catch((err) => {
+					console.log(err);
+
 					throw err;
 				});
 			res.statusCode = 200;

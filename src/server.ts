@@ -7,7 +7,7 @@ import PodLocalController from './podsLocal/podsLocal.controller';
 import MainController from './main/main.controller';
 
 
-const controllers = [new MainController(), new PodController(), new PodLocalController()];
+const controllers = [new PodController(), new MainController(), new PodLocalController()];
 
 const app = new App(controllers, config.port);
 

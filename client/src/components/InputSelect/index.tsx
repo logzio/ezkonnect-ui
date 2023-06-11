@@ -7,7 +7,10 @@ import React, {
 import styled from 'styled-components';
 import Tag from '../Tag';
 
-const LabelSelect = styled.div`
+interface ILabelSelect {
+    fieldDisabled?: boolean;
+}
+const LabelSelect = styled.div<ILabelSelect>`
     border: 1px solid #e7e7e7;
     border-radius: 3px;
     padding: 7px 8px;
@@ -24,6 +27,14 @@ const LabelSelect = styled.div`
     display: flex;
     align-items: center;
     max-width: 120px;
+    ${({ fieldDisabled }) => {
+        return fieldDisabled
+            ? `
+		opacity:0.7;
+		background:rgb(218 217 217);
+		`
+            : '';
+    }}
 `;
 
 const DropdownList = styled.ul`
@@ -60,6 +71,7 @@ const ArrowIcon = styled.svg`
         transform: rotate(180deg);
     }
 `;
+
 const DropdownListWrapper = styled.div`
     padding: 10px 0px 0px 0px;
     position: absolute;
@@ -123,6 +135,7 @@ interface IProps {
     currentValue: string;
     description?: string;
     placeHolder?: string;
+    fieldDisabled?: boolean;
     maxWidthSelect?: string;
 }
 
@@ -133,11 +146,15 @@ const InputSelect: FunctionComponent<IProps> = ({
     currentValue,
     placeHolder,
     maxWidthSelect,
+    fieldDisabled = false,
     description,
 }) => {
     const [openDropDown, setOpenDropDown] = useState<boolean>(false);
 
     const onOpen = () => {
+        if (fieldDisabled) {
+            return;
+        }
         setOpenDropDown(true);
     };
 
@@ -186,7 +203,7 @@ const InputSelect: FunctionComponent<IProps> = ({
 
     return (
         <>
-            <LabelSelect onClick={onOpen}>
+            <LabelSelect fieldDisabled={fieldDisabled} onClick={onOpen}>
                 {currentValue === '' ? (
                     placeHolder
                 ) : (

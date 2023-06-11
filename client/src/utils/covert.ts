@@ -1,5 +1,7 @@
 export const convertArrayToSelectOption = (arrayOptions: string[]) => {
-	return arrayOptions.map((option) => {
+	const uniqs = [...new Set(arrayOptions)];
+
+	return uniqs.map((option) => {
 		return {
 			name: option,
 			isDisabled: false,

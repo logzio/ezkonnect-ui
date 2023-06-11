@@ -21,11 +21,11 @@ const TabBodyTraces: FunctionComponent<IProps> = () => {
                     <Table.TableHeaderCell>Pods</Table.TableHeaderCell>
                     <Table.TableHeaderCell>
                         Namespace{' '}
-                        <Tooltip message='The cluster containing the chosen pod.' />
+                        <Tooltip message='The namespace containing the chosen app.' />
                     </Table.TableHeaderCell>
                     <Table.TableHeaderCell>
                         Service name{' '}
-                        <Tooltip message='The service associated with this pod.You can review or edit unassociated pods.' />
+                        <Tooltip message='The service associated with the application' />
                     </Table.TableHeaderCell>
                     <Table.TableHeaderCell> </Table.TableHeaderCell>
                 </Table.TableHeader>

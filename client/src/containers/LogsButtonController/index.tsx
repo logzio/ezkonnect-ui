@@ -94,7 +94,7 @@ const LogsButtonController: FunctionComponent<IProps> = ({
                         onClick={() => {
                             onClickBulkChangeLogTypeAPI(false);
                         }}
-                        hintMessage='Revert the changes applied to your Logz.io account'
+                        hintMessage='Revert the changes applied to your cluster (This action will restart your application)'
                     >
                         {isLoading ? (
                             <>
@@ -112,7 +112,7 @@ const LogsButtonController: FunctionComponent<IProps> = ({
                         onClick={() => {
                             onClickBulkChangeLogTypeAPI(true);
                         }}
-                        hintMessage='Apply changes to your Logz.io account'
+                        hintMessage='Apply changes to your cluster (This action will restart your application)'
                     >
                         {isLoading ? (
                             <>

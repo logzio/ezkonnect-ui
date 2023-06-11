@@ -17,7 +17,7 @@ import {
 	ADD_SERVICE_NAME,
 	ADD_SERVICE_NAME_BULK
 } from '../types';
-import { IPod, IParsedItem, IContextState, INotification, IParsedLogsData } from '../../utils/interfaces';
+import { IPod, IContextState, INotification } from '../../utils/interfaces';
 import { convertArrayToSelectOption } from '../../utils/covert';
 
 
@@ -33,15 +33,32 @@ export const PodReducer = (currentState: IContextState, action: Action): IContex
 
 		}
 		case ADD_SERVICE_NAME: {
-
-			const convertedTServiceName = convertArrayToSelectOption([action.payload])[0];
-			const updatedList = [...currentState.serviceNameList];
-			const chenckupIndex = updatedList.findIndex(item => item.name === convertedTServiceName.name);
+			if (!currentState.tracesPods) {
+				break;
+			}
+			const updatedList = [...currentState.tracesPods[action.payload.applicationName].all_service_names];
+			const chenckupIndex = updatedList.findIndex(item => item === action.payload.serviceName);
 			if (chenckupIndex > 0) {
 				return currentState
 			}
-			updatedList.push(convertedTServiceName);
-			return { ...currentState, serviceNameList: [...updatedList] };
+			updatedList.push(action.payload.serviceName);
+
+			const currentBulkPodList = { ...currentState.tracesPods[action.payload.applicationName] };
+			const updatedBulkState = { ...currentState.tracesPods };
+			currentBulkPodList.service_name_default = action.payload.serviceName;
+			currentBulkPodList.all_service_names = [...updatedList];
+			const updatedPods = currentBulkPodList.podsItem.map((pod: IPod) => {
+
+				pod.container_name = action.payload.serviceName;
+				return pod
+			})
+			currentBulkPodList.podsItem = [...updatedPods];
+			updatedBulkState[action.payload.applicationName] = { ...currentBulkPodList }
+			return {
+				...currentState, tracesPods: updatedBulkState
+			};
+
+
 		}
 		case SET_TRACES_PODS:
 			{

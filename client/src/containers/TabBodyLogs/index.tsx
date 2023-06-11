@@ -20,11 +20,11 @@ const TabBodyLogs: FunctionComponent<IProps> = () => {
                     <Table.TableHeaderCell>Pods</Table.TableHeaderCell>
                     <Table.TableHeaderCell>
                         Namespace{' '}
-                        <Tooltip message='The cluster containing the chosen pod.' />
+                        <Tooltip message='The namespace containing the chosen app.' />
                     </Table.TableHeaderCell>
                     <Table.TableHeaderCell>
                         Log Type{' '}
-                        <Tooltip message='Type of selected pod. You can review or edit unassociated pods.' />
+                        <Tooltip message='The log type of selected app. You can review or edit unassociated apps.' />
                     </Table.TableHeaderCell>
                     <Table.TableHeaderCell> </Table.TableHeaderCell>
                 </Table.TableHeader>

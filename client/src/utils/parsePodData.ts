@@ -25,7 +25,7 @@ export const getAllServiceNames = (podsArray: IPod[]) => {
 	return serviceNameArray;
 }
 
-export const multipleParseHandler = (podsArray: IPod[], filterFieldPrimary: string, filterFieldSecondary: string): IParsedLogsData => {
+export const multipleParseHandler = (podsArray: IPod[], filterFieldPrimary: string, filterFieldSecondary: string, filterFieldThird: string): IParsedLogsData => {
 	const allLogTypes = getAllLogTypes(podsArray);
 	const allServiceNames = getAllServiceNames(podsArray);
 
@@ -35,16 +35,16 @@ export const multipleParseHandler = (podsArray: IPod[], filterFieldPrimary: stri
 	podsArray.forEach(data => {
 		if (data[filterFieldPrimary] != null) {
 
-			if (parsedData[`${data[filterFieldPrimary]}_${data[filterFieldSecondary]}`]) {
-				parsedData[`${data[filterFieldPrimary]}_${data[filterFieldSecondary]}`].pods++;
+			if (parsedData[`${data[filterFieldPrimary]}_${data[filterFieldSecondary]}_${data[filterFieldThird]}`]) {
+				parsedData[`${data[filterFieldPrimary]}_${data[filterFieldSecondary]}_${data[filterFieldThird]}`].pods = parsedData[`${data[filterFieldPrimary]}_${data[filterFieldSecondary]}_${data[filterFieldThird]}`].pods + 1;
 			} else {
-				parsedData[`${data[filterFieldPrimary]}_${data[filterFieldSecondary]}`] = {
+				parsedData[`${data[filterFieldPrimary]}_${data[filterFieldSecondary]}_${data[filterFieldThird]}`] = {
 					pods: 1,
 					all_log_types: [...allLogTypes],
-					all_service_names: [...allServiceNames],
+					all_service_names: [],
 					traces_instrumented: data.traces_instrumented,
 					log_type_default: '',
-					service_name_default: '',
+					service_name_default: data.container_name,
 					namespaces: [],
 					isTouched: false,
 					podsItem: [],
@@ -52,8 +52,9 @@ export const multipleParseHandler = (podsArray: IPod[], filterFieldPrimary: stri
 
 				}
 			}
-			parsedData[`${data[filterFieldPrimary]}_${data[filterFieldSecondary]}`].namespaces.push(data.namespace);
-			parsedData[`${data[filterFieldPrimary]}_${data[filterFieldSecondary]}`].podsItem.push(data);
+			parsedData[`${data[filterFieldPrimary]}_${data[filterFieldSecondary]}_${data[filterFieldThird]}`].namespaces.push(data.namespace);
+			parsedData[`${data[filterFieldPrimary]}_${data[filterFieldSecondary]}_${data[filterFieldThird]}`].podsItem.push(data);
+			parsedData[`${data[filterFieldPrimary]}_${data[filterFieldSecondary]}_${data[filterFieldThird]}`].all_service_names.push(data.container_name);
 		} else {
 			if (parsedData['Undetected']) {
 				parsedData['Undetected'].pods++;
@@ -61,7 +62,7 @@ export const multipleParseHandler = (podsArray: IPod[], filterFieldPrimary: stri
 				parsedData['Undetected'] = {
 					pods: 1,
 					all_log_types: [...allLogTypes],
-					all_service_names: [...allServiceNames],
+					all_service_names: [],
 
 					traces_instrumented: data.traces_instrumented,
 					namespaces: [],
@@ -72,6 +73,8 @@ export const multipleParseHandler = (podsArray: IPod[], filterFieldPrimary: stri
 			}
 			parsedData['Undetected'].namespaces.push(data.namespace);
 			parsedData['Undetected'].podsItem.push(data);
+			parsedData['Undetected'].all_service_names.push(data.container_name);
+
 		}
 	});
 

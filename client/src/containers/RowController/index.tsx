@@ -58,7 +58,7 @@ const RowContoller: FunctionComponent<IProps> = ({
                     onClick={() => {
                         onClickHandler(status);
                     }}
-                    hintMessage='Revert the changes applied to your Logz.io account'
+                    hintMessage='Revert the changes applied to your cluster (This action will restart your application)'
                 >
                     {isLoading ? (
                         <>
@@ -74,7 +74,7 @@ const RowContoller: FunctionComponent<IProps> = ({
                     onClick={() => {
                         onClickHandler(status);
                     }}
-                    hintMessage='Apply changes to your Logz.io account'
+                    hintMessage='Apply changes to your cluster (This action will restart your application)'
                 >
                     {isLoading ? (
                         <>

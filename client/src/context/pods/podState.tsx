@@ -1,4 +1,4 @@
-import React, { useReducer, FunctionComponent } from 'react';
+import React, { useReducer, FunctionComponent, useMemo } from 'react';
 import { PodContext } from './podContext';
 import { PodReducer } from './podReducer';
 import api from '../../utils/api';
@@ -55,21 +55,32 @@ export const PodState: React.FC<IProps> = ({ children }) => {
             podsItems,
             'language',
             'namespace',
+            'container_name',
         );
         const allLogTypes = getAllLogTypes(podsItems);
-        const allServiceNames = getAllServiceNames(podsItems);
+        // const allServiceNames = getAllServiceNames(podsItems);
+        // console.log(parsedTrace);
         dispatch({ type: SET_TRACES_PODS, payload: parsedTrace });
         dispatch({ type: SET_LOG_PODS, payload: parsedLogs });
         dispatch({ type: GET_LOG_LIST, payload: allLogTypes });
-        dispatch({ type: GET_SERVICE_NAME_LIST, payload: allServiceNames });
+        // dispatch({
+        //     type: GET_SERVICE_NAME_LIST,
+        //     payload: allServiceNames,
+        // });
         dispatch({ type: SET_ALL_PODS, payload: podsItems });
     };
 
     const addLogTypeToTheList = (logTypeName: string) => {
         dispatch({ type: ADD_LOG_TYPE, payload: logTypeName });
     };
-    const addServiceNameToTheList = (serviceName: string) => {
-        dispatch({ type: ADD_SERVICE_NAME, payload: serviceName });
+    const addServiceNameToTheList = (
+        applicationName: string,
+        serviceName: string,
+    ) => {
+        dispatch({
+            type: ADD_SERVICE_NAME,
+            payload: { applicationName, serviceName },
+        });
     };
     const updatePodHandler = async (type: string, dataIndifier: string) => {
         dispatch({ type: UPDATE_POD, payload: { type, dataIndifier } });
@@ -269,29 +280,26 @@ export const PodState: React.FC<IProps> = ({ children }) => {
             }
         }
     };
-
-    return (
-        <PodContext.Provider
-            value={{
-                podsState: state,
-                serviceNameList: state.serviceNameList,
-                logList: state.logList,
-                notifications: state.notifications,
-                getAllPods: getAllPods,
-                updatePodAPI: updatePodHandlerAPI,
-                updatePod: updatePodHandler,
-                updateLogTypePod,
-                updateLogTypeBulkToList,
-                addLogTypeToTheList,
-                addLogTypeAPI,
-                updateLogTypeBulk,
-                updateLogTypeBulkAPI,
-                setNotifications,
-                addServiceNameToTheList,
-                updateServiceNameBulk,
-            }}
-        >
-            {children}{' '}
-        </PodContext.Provider>
+    const value = useMemo(
+        () => ({
+            podsState: state,
+            serviceNameList: state.serviceNameList,
+            logList: state.logList,
+            notifications: state.notifications,
+            getAllPods: getAllPods,
+            updatePodAPI: updatePodHandlerAPI,
+            updatePod: updatePodHandler,
+            updateLogTypePod,
+            updateLogTypeBulkToList,
+            addLogTypeToTheList,
+            addLogTypeAPI,
+            updateLogTypeBulk,
+            updateLogTypeBulkAPI,
+            setNotifications,
+            addServiceNameToTheList,
+            updateServiceNameBulk,
+        }),
+        [state],
     );
+    return <PodContext.Provider value={value}>{children} </PodContext.Provider>;
 };

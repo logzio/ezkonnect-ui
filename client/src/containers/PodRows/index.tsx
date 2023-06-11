@@ -11,7 +11,10 @@ import { PodContext } from '../../context/pods/podContext';
 import { IPod } from '../../utils/interfaces';
 import { displayNamespaces } from '../../utils/parsePodData';
 import LogsButtonController from '../LogsButtonController';
-import { converLanguageName } from '../../utils/covert';
+import {
+    converLanguageName,
+    convertArrayToSelectOption,
+} from '../../utils/covert';
 
 const IconArrow = styled.svg`
     transform: rotate(270deg);
@@ -120,7 +123,7 @@ export const PodRows: FunctionComponent<IProps> = ({ podsData, type }) => {
                                 <b>{converLanguageName(key)} </b> was detected
                                 in{' '}
                                 <b>
-                                    {podsData[key].pods > 1
+                                    {podsData[key].pods <= 1
                                         ? '1 App'
                                         : `${podsData[key].pods} Apps`}
                                 </b>
@@ -145,20 +148,22 @@ export const PodRows: FunctionComponent<IProps> = ({ podsData, type }) => {
                                 />
                             ) : (
                                 <InputSelect
-                                    options={serviceNameList}
+                                    options={convertArrayToSelectOption(
+                                        podsData[key].all_service_names,
+                                    )}
                                     onChangeSelect={(option) => {
                                         updateServiceNameBulk(key, option);
-                                        // onChangeSelectBulk(key, option);
                                     }}
                                     currentValue={
                                         podsData[key].service_name_default ||
-                                        serviceNameList[0].name
+                                        podsData[key].all_service_names[0]
                                     }
                                     fieldDisabled={true}
                                     description='Create new Service name'
                                     placeHolder={'Service name'}
                                     onChangeValue={(e: React.FormEvent) => {
                                         addServiceNameToTheList(
+                                            key,
                                             e.target[0].value,
                                         );
                                     }}

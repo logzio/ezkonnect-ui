@@ -2,9 +2,8 @@ export interface IPod {
 	name: string;
 	namespace: string;
 	controller_kind: string;
-	container_name: string;
+	container_name: string | null;
 	traces_instrumented: boolean;
-	metrics_instrumented: boolean;
 	application?: string | null;
 	language?: string | null;
 	current_log_type?: string | null;
@@ -30,7 +29,6 @@ export interface IParsedItem {
 	namespaces: string[];
 	all_service_names: string[];
 	traces_instrumented?: boolean;
-	metrics_instrumented?: boolean;
 	isTouched?: boolean;
 	log_type_default?: string;
 	service_name_default?: string;
@@ -53,7 +51,7 @@ export interface INotification {
 	notificationId: number;
 }
 
-type ListType = {
+export type ListType = {
 	name: string;
 	isDisabled: boolean;
 	default: boolean;

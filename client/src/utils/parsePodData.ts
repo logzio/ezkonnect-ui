@@ -61,7 +61,7 @@ export const multipleParseHandler = (podsArray: IPod[], filterFieldPrimary: stri
 					all_service_names: [],
 					traces_instrumented: data.traces_instrumented,
 					log_type_default: '',
-					service_name_default: data.container_name,
+					service_name_default: data.container_name ? data.container_name : '',
 					namespaces: [],
 					isTouched: false,
 					podsItem: [],
@@ -71,7 +71,9 @@ export const multipleParseHandler = (podsArray: IPod[], filterFieldPrimary: stri
 			}
 			parsedData[`${data[filterFieldPrimary]}_${data[filterFieldSecondary]}_${data[filterFieldThird]}`].namespaces.push(data.namespace);
 			parsedData[`${data[filterFieldPrimary]}_${data[filterFieldSecondary]}_${data[filterFieldThird]}`].podsItem.push(data);
-			parsedData[`${data[filterFieldPrimary]}_${data[filterFieldSecondary]}_${data[filterFieldThird]}`].all_service_names.push(data.container_name);
+			if (data.container_name) {
+				parsedData[`${data[filterFieldPrimary]}_${data[filterFieldSecondary]}_${data[filterFieldThird]}`].all_service_names.push(data.container_name);
+			}
 		} else {
 			if (parsedData['Undetected']) {
 				parsedData['Undetected'].pods++;
@@ -90,7 +92,9 @@ export const multipleParseHandler = (podsArray: IPod[], filterFieldPrimary: stri
 			}
 			parsedData['Undetected'].namespaces.push(data.namespace);
 			parsedData['Undetected'].podsItem.push(data);
-			parsedData['Undetected'].all_service_names.push(data.container_name);
+			if (data.container_name) {
+				parsedData['Undetected'].all_service_names.push(data.container_name);
+			}
 
 		}
 	});
@@ -98,6 +102,7 @@ export const multipleParseHandler = (podsArray: IPod[], filterFieldPrimary: stri
 
 	return parsedData;
 }
+
 /**
  * Function recieve a array of Pods from API, and filters them based on 1 object field, 
  * if it's not exists set is as Undetected

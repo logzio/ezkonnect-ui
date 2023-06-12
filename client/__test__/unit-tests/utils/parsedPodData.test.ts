@@ -75,7 +75,6 @@ describe('parseHandler', () => {
 });
 
 
-
 describe('displayNamespaces', () => {
 	it('should return a comma-separated list of namespaces if there are 2 or fewer namespaces', () => {
 		const namespaces = ['namespace1', 'namespace2'];

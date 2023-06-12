@@ -11,20 +11,19 @@ interface IProps {
 
 const TabBodyTraces: FunctionComponent<IProps> = () => {
     const { tracesPods } = useContext(TracesContext);
-    console.log(tracesPods);
     return (
         <Tab>
             <Table.TableWrapper
                 columnWidths={['170px', '80px', '80px', '170px']}
             >
                 <Table.TableHeader>
-                    <Table.TableHeaderCell>Pods</Table.TableHeaderCell>
+                    <Table.TableHeaderCell>Applications</Table.TableHeaderCell>
                     <Table.TableHeaderCell>
-                        Namespace{' '}
+                        Namespace
                         <Tooltip message='The namespace containing the chosen app.' />
                     </Table.TableHeaderCell>
                     <Table.TableHeaderCell>
-                        Service name{' '}
+                        Service name
                         <Tooltip message='The service associated with the application' />
                     </Table.TableHeaderCell>
                     <Table.TableHeaderCell> </Table.TableHeaderCell>

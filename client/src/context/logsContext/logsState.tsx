@@ -150,7 +150,9 @@ export const LogsState: React.FC<IProps> = ({ children }) => {
                         },
                     });
                     setNotifications(
-                        '1 Pod were successfully deployed to cluster',
+                        `Log type was ${
+                            isDelete ? 'deleted' : 'added'
+                        } on application: ${podUpdated.name}`,
                         NotificationStatus.Success,
                     );
                 } catch (err) {

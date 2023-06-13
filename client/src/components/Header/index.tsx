@@ -33,7 +33,7 @@ const TitleWrapper = styled.div`
     align-items: center;
 `;
 
-const H1Element = styled.h1`
+const TitleElement = styled.h1`
     margin: 0;
     font-size: 18px;
     line-height: 47px;
@@ -61,6 +61,8 @@ const MenuItem = styled.div`
         color: #002e42;
     }
 `;
+const LinkWrapper = styled.a``;
+
 const LogoIconWrapper = styled(LogoIcon)`
     margin-right: 8px;
 `;
@@ -74,16 +76,16 @@ const Header: FunctionComponent = () => {
             <TitleWrapper>
                 <LogoIconWrapper />
 
-                <Link to='/'>
-                    <H1Element role='title'>Logz.io EZKonnect™</H1Element>
-                </Link>
+                <LinkWrapper href='/'>
+                    <TitleElement role='title'>Logz.io EZKonnect™</TitleElement>
+                </LinkWrapper>
             </TitleWrapper>
             <MenuWrapper>
                 <MenuItem>
-                    <Link to='/'>
+                    <LinkWrapper href='/'>
                         <HelpIconWrapper />
                         <span>Help</span>
-                    </Link>
+                    </LinkWrapper>
                 </MenuItem>
             </MenuWrapper>
         </HeaderWrapper>

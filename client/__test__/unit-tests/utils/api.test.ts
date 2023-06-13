@@ -135,7 +135,7 @@ describe('Api', () => {
 				},
 				body: JSON.stringify(podData),
 			});
-			expect(result).toEqual(expectedError.message);
+			expect(result).toEqual(expectedError);
 		});
 	});
 });

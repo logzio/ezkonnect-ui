@@ -7,7 +7,6 @@ interface IProps {
     onClick?: () => void;
 }
 const TooltipWrapperText = styled.span`
-    background: #1a4251;
     border-radius: 2px;
     font-size: 11px;
     line-height: 15px;
@@ -28,13 +27,17 @@ const TooltipWrapper = styled.div`
     margin-left: 5px;
     &:hover .tooltip-message {
         display: flex;
+        background: #1a4251;
     }
 `;
 const Tooltip: FunctionComponent<IProps> = ({ message }) => {
     return (
-        <TooltipWrapper>
-            <TooltipIcon />
-            <TooltipWrapperText className='tooltip-message'>
+        <TooltipWrapper data-testid='tooltip'>
+            <TooltipIcon data-testid='icon' />
+            <TooltipWrapperText
+                data-testid='tooltip-message'
+                className='tooltip-message'
+            >
                 {message}
             </TooltipWrapperText>
         </TooltipWrapper>

@@ -54,7 +54,11 @@ const Text: FunctionComponent<IProps> = ({
             );
         case 'p':
             return (
-                <ParagraphSection color={color} className={classNames}>
+                <ParagraphSection
+                    role='paragraph'
+                    color={color}
+                    className={classNames}
+                >
                     {children}
                 </ParagraphSection>
             );

@@ -14,6 +14,15 @@ export const NotificationState: React.FC<IProps> = ({ children }) => {
     };
     const [state, dispatch] = useReducer(NotificationReducer, initialState);
 
+    const removeNotification = (id: string) => {
+        dispatch({
+            type: REMOVE_NOTIFICATION,
+            payload: {
+                tempId: id,
+            },
+        });
+    };
+
     const setNotifications = (message: string, type: NotificationStatus) => {
         const temporaryId = Math.floor(100000 + Math.random() * 900000);
 
@@ -40,6 +49,7 @@ export const NotificationState: React.FC<IProps> = ({ children }) => {
         () => ({
             notifications: state.notifications,
             setNotifications,
+            removeNotification,
         }),
         [state],
     );

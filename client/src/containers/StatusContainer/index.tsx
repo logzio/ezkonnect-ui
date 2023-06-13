@@ -17,10 +17,10 @@ interface INotification {
 }
 
 const StatusContainer: FunctionComponent = () => {
-    const { notifications, removeNotifications } =
+    const { notifications, removeNotification } =
         useContext(NotificationContext);
     const closeButtonHandler = (idx: number) => {
-        removeNotifications(idx);
+        removeNotification(idx);
     };
 
     return notifications.length != 0 ? (

@@ -4,6 +4,7 @@ import styled from 'styled-components';
 interface IProps {
     children: React.ReactNode;
     color?: string;
+    className?: string;
     onClick?: () => void;
 }
 

@@ -33,7 +33,7 @@ export const NotificationState: React.FC<IProps> = ({ children }) => {
                     tempId: temporaryId,
                 },
             });
-        }, 3000);
+        }, 10000);
     };
 
     const value = useMemo(

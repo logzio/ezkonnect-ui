@@ -16,8 +16,9 @@ import {
 } from '../../utils/covert';
 import { LogsContext } from '../../context/logsContext/logsContext';
 import { TracesContext } from '../../context/tracesContext/tracesContext';
+import { ReactComponent as IconArrow } from '../../assets/icons/chevron-right-icon.svg';
 
-const IconArrow = styled.svg`
+const IconArrowWrapper = styled(IconArrow)`
     transform: rotate(270deg);
     transition: 0.3s all ease-in-out;
     margin-right: 10px;
@@ -101,21 +102,12 @@ export const PodRows: FunctionComponent<IProps> = ({ podsData, type }) => {
                 <div key={`${key}`}>
                     <Table.TableRow>
                         <Table.Cell>
-                            <IconArrow
-                                width='15'
-                                height='10'
-                                viewBox='0 0 15 10'
-                                fill='none'
+                            <IconArrowWrapper
                                 onClick={(e) => {
                                     onClickRowHandler(e, key);
                                 }}
-                            >
-                                <path
-                                    style={{ pointerEvents: 'none' }}
-                                    d='M2.2793 0.679688L7.625 6.05273L12.9707 0.679688L14.625 2.32031L7.625 9.32031L0.625 2.32031L2.2793 0.679688Z'
-                                    fill='#002E42'
-                                />
-                            </IconArrow>
+                            />
+
                             <LanguageLogo identifier={key} />
                             <Text tag='p'>
                                 <b>{converLanguageName(key)} </b> was detected
@@ -140,8 +132,7 @@ export const PodRows: FunctionComponent<IProps> = ({ podsData, type }) => {
                                         onChangeSelectBulk(key, option);
                                     }}
                                     currentValue={
-                                        podsData[key].logTypeOnSelect ||
-                                        logList[0].name
+                                        podsData[key].logTypeOnSelect || key
                                     }
                                 />
                             ) : (
@@ -156,6 +147,7 @@ export const PodRows: FunctionComponent<IProps> = ({ podsData, type }) => {
                                         podsData[key].service_name_default ||
                                         podsData[key].all_service_names[0]
                                     }
+                                    maxWidthSelect='200px'
                                     fieldDisabled={true}
                                     description='Create new Service name'
                                     placeHolder={'Service name'}
@@ -242,21 +234,12 @@ export const PodRows: FunctionComponent<IProps> = ({ podsData, type }) => {
             <div key={`${type}_Undetected`}>
                 <Table.TableRow>
                     <Table.Cell>
-                        <IconArrow
-                            width='15'
-                            height='10'
-                            viewBox='0 0 15 10'
-                            fill='none'
+                        <IconArrowWrapper
                             onClick={(e) => {
                                 onClickRowHandler(e, 'Undetected');
                             }}
-                        >
-                            <path
-                                style={{ pointerEvents: 'none' }}
-                                d='M2.2793 0.679688L7.625 6.05273L12.9707 0.679688L14.625 2.32031L7.625 9.32031L0.625 2.32031L2.2793 0.679688Z'
-                                fill='#002E42'
-                            />
-                        </IconArrow>
+                        />
+
                         <Text tag='p'>
                             <b>
                                 Undetected Pods ({podsData['Undetected'].pods}){' '}

@@ -12,7 +12,7 @@ const settings = {
  * Class that have methods to manage API calls
  * @param  {string} baseUrl
  */
-class Api {
+export class Api {
 	baseUrl: string;
 
 	constructor(baseUrl: string) {

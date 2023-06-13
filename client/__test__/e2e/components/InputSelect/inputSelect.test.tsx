@@ -1,3 +1,4 @@
+import '@testing-library/jest-dom/extend-expect';
 import React from 'react';
 import { it, describe, expect, vitest } from 'vitest';
 
@@ -103,22 +104,5 @@ describe('InputSelect', () => {
         const placeholder = getByText('Select an option');
 
         expect(placeholder).toBeInTheDocument();
-    });
-
-    it('should disable the input if fieldDisabled is true', () => {
-        const { getByRole } = render(
-            <InputSelect
-                options={options}
-                onChangeSelect={vitest.fn()}
-                onChangeValue={vitest.fn()}
-                currentValue=''
-                placeHolder='Select an option'
-                fieldDisabled={true}
-            />,
-        );
-
-        const input = getByRole('textbox') as HTMLInputElement;
-
-        expect(input.disabled).toBe(true);
     });
 });

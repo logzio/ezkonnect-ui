@@ -6,6 +6,7 @@ import React, {
 } from 'react';
 import styled from 'styled-components';
 import Tag from '../Tag';
+import { ReactComponent as SelectIcon } from '../../assets/icons/select-icon.svg';
 
 interface ILabelSelectWrapper {
     maxWidth?: string;
@@ -70,7 +71,7 @@ const DropdownListElement = styled.li`
     }
 `;
 
-const ArrowIcon = styled.svg`
+const ArrowIcon = styled(SelectIcon)`
     transition: 0.3s all ease-in-out;
 
     &.animate {
@@ -147,19 +148,11 @@ const Select: FunctionComponent<IProps> = ({
                 {currentValue === '' ? (
                     placeHolder
                 ) : (
-                    <Tag color='#f7c15c'>{currentValue}</Tag>
+                    <Tag className='current' color='#f7c15c'>
+                        {currentValue}
+                    </Tag>
                 )}
-                <ArrowIcon
-                    className={`${openDropDown ? 'animate' : ''}`}
-                    width='10'
-                    height='7'
-                    viewBox='0 0 10 7'
-                >
-                    <path
-                        d='M1.18164 0.539062L5 4.37695L8.81836 0.539062L10 1.71094L5 6.71094L0 1.71094L1.18164 0.539062Z'
-                        fill='#AFAFAF'
-                    />
-                </ArrowIcon>
+                <ArrowIcon className={`${openDropDown ? 'animate' : ''}`} />
             </LabelSelect>
             <DropdownList className={`${openDropDown ? 'open' : ''}`}>
                 {renderOptions()}

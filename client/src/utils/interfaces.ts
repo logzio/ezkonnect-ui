@@ -4,6 +4,8 @@ export interface IPod {
 	controller_kind: string;
 	container_name: string | null;
 	traces_instrumented: boolean;
+	detection_status?: string;
+	opentelemetry_preconfigured?: boolean;
 	application?: string | null;
 	language?: string | null;
 	current_log_type?: string | null;
@@ -22,7 +24,6 @@ export interface IItemToSend {
 }
 
 export interface IParsedItem {
-
 	pods: number;
 	all_log_types: string[];
 	podsItem: IPod[];

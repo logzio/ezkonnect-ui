@@ -131,7 +131,10 @@ const Button: FunctionComponent<IProps> = ({
         <ButtonWrapper>
             {renderButton()}
             {hintMessage ? (
-                <HintMessageWrapper className='hint-message'>
+                <HintMessageWrapper
+                    data-testid='hint-message'
+                    className='hint-message'
+                >
                     {hintMessage}
                 </HintMessageWrapper>
             ) : (

@@ -61,7 +61,7 @@ export const multipleParseHandler = (podsArray: IPod[], filterFieldPrimary: stri
 					all_service_names: [],
 					traces_instrumented: data.traces_instrumented,
 					log_type_default: '',
-					service_name_default: data.container_name ? data.container_name : '',
+					service_name_default: data.container_name ? `${data.name}-${data.container_name}` : '',
 					namespaces: [],
 					isTouched: false,
 					podsItem: [],

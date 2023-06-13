@@ -24,7 +24,7 @@ describe('convertArrayToSelectOption', () => {
 
 describe('converLanguageName', () => {
 	it('should convert identifier to language name', () => {
-		const identifier = '';
+		const identifier = 'en_US';
 		const expected = 'en';
 
 		const result = converLanguageName(identifier);

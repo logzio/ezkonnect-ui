@@ -17,6 +17,10 @@ const TagWrapper = styled.span`
     font-size: 12px;
     line-height: 18px;
     padding: 1px 4px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    max-width: 150px;
 `;
 const Tag: FunctionComponent<IProps> = ({ children, ...props }) => {
     return <TagWrapper {...props}>{children}</TagWrapper>;

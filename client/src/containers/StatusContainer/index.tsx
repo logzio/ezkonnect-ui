@@ -23,7 +23,7 @@ const StatusContainer: FunctionComponent = () => {
         removeNotification(idx);
     };
 
-    return notifications.length != 0 ? (
+    return notifications && notifications.length != 0 ? (
         <TabWrapper>
             {notifications.map((notification: INotification, idx: number) => (
                 <Notification

@@ -52,10 +52,10 @@ export const multipleParseHandler = (podsArray: IPod[], filterFieldPrimary: stri
 	podsArray.forEach(data => {
 		if (data[filterFieldPrimary] != null) {
 
-			if (parsedData[`${data[filterFieldPrimary]}_${data[filterFieldSecondary]}_${data[filterFieldThird]}`]) {
-				parsedData[`${data[filterFieldPrimary]}_${data[filterFieldSecondary]}_${data[filterFieldThird]}`].pods = parsedData[`${data[filterFieldPrimary]}_${data[filterFieldSecondary]}_${data[filterFieldThird]}`].pods + 1;
+			if (parsedData[`${data[filterFieldPrimary]}_${data[filterFieldSecondary]}_${data.name}-${data[filterFieldThird]}`]) {
+				parsedData[`${data[filterFieldPrimary]}_${data[filterFieldSecondary]}_${data.name}-${data[filterFieldThird]}`].pods = parsedData[`${data[filterFieldPrimary]}_${data[filterFieldSecondary]}_${data.name}-${data[filterFieldThird]}`].pods + 1;
 			} else {
-				parsedData[`${data[filterFieldPrimary]}_${data[filterFieldSecondary]}_${data[filterFieldThird]}`] = {
+				parsedData[`${data[filterFieldPrimary]}_${data[filterFieldSecondary]}_${data.name}-${data[filterFieldThird]}`] = {
 					pods: 1,
 					all_log_types: [...allLogTypes],
 					all_service_names: [],
@@ -69,10 +69,10 @@ export const multipleParseHandler = (podsArray: IPod[], filterFieldPrimary: stri
 
 				}
 			}
-			parsedData[`${data[filterFieldPrimary]}_${data[filterFieldSecondary]}_${data[filterFieldThird]}`].namespaces.push(data.namespace);
-			parsedData[`${data[filterFieldPrimary]}_${data[filterFieldSecondary]}_${data[filterFieldThird]}`].podsItem.push(data);
+			parsedData[`${data[filterFieldPrimary]}_${data[filterFieldSecondary]}_${data.name}-${data[filterFieldThird]}`].namespaces.push(data.namespace);
+			parsedData[`${data[filterFieldPrimary]}_${data[filterFieldSecondary]}_${data.name}-${data[filterFieldThird]}`].podsItem.push(data);
 			if (data.container_name) {
-				parsedData[`${data[filterFieldPrimary]}_${data[filterFieldSecondary]}_${data[filterFieldThird]}`].all_service_names.push(data.container_name);
+				parsedData[`${data[filterFieldPrimary]}_${data[filterFieldSecondary]}_${data.name}-${data[filterFieldThird]}`].all_service_names.push(data.container_name);
 			}
 		} else {
 			if (parsedData['Undetected']) {

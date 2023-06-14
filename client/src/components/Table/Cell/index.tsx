@@ -4,6 +4,8 @@ import styled from 'styled-components';
 interface IProps {
     children: React.ReactNode;
     display?: string;
+    width?: string;
+    color?: string;
     flexDirection?: string;
     onClick?: () => void;
 }

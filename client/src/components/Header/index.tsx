@@ -82,7 +82,7 @@ const Header: FunctionComponent = () => {
             </TitleWrapper>
             <MenuWrapper>
                 <MenuItem>
-                    <LinkWrapper href='/'>
+                    <LinkWrapper href='https://deploy-preview-2403--logz-docs.netlify.app/user-guide/log-shipping/ezkonnect.html'>
                         <HelpIconWrapper />
                         <span>Help</span>
                     </LinkWrapper>

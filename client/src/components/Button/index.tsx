@@ -132,7 +132,7 @@ const Button: FunctionComponent<IProps> = ({
     return hintMessage ? (
         <ButtonWrapper
             ref={ref}
-            onMouseEnter={() => positionTooltip(ref.current, 35)}
+            onMouseEnter={() => positionTooltip(ref.current!, 35)}
         >
             {renderButton()}
             <HintMessageWrapper

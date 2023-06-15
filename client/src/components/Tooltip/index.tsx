@@ -39,7 +39,7 @@ const Tooltip: FunctionComponent<IProps> = ({ message }) => {
     return (
         <TooltipWrapper
             ref={ref}
-            onMouseEnter={() => positionTooltip(ref.current)}
+            onMouseEnter={() => positionTooltip(ref.current!)}
             data-testid='tooltip'
         >
             <TooltipIcon data-testid='icon' />

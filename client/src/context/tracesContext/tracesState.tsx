@@ -86,9 +86,12 @@ export const TracesState: React.FC<IProps> = ({ children }) => {
                 },
             });
             setNotifications(
-                `Instrumentation was added to the ${
+                `Instrumentation was ${status ? 'deleted' : 'added'} to ${
                     state[`${type}Pods`][dataIndifier].podsItem.length
-                } pods `,
+                }  ${
+                    state[`${type}Pods`][dataIndifier].podsItem[0]
+                        .controller_kind
+                }`,
                 NotificationStatus.Success,
             );
         } catch (err) {

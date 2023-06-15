@@ -40,7 +40,7 @@ const Info: FunctionComponent<IProps> = ({ children, message }) => {
     return (
         <InfoWrapper
             ref={ref}
-            onMouseEnter={() => positionTooltip(ref.current, 60)}
+            onMouseEnter={() => positionTooltip(ref.current!, 60)}
             data-testid='info'
         >
             {children}

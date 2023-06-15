@@ -114,7 +114,11 @@ export const PodRows: FunctionComponent<IProps> = ({ podsData, type }) => {
                             <LanguageLogo identifier={key} />
                             <Text tag='p'>
                                 <b>{converLanguageName(key)} </b> was detected
-                                in <b>{podsData[key].podsItem[0].name} App </b>
+                                in{' '}
+                                <b>
+                                    {podsData[key].podsItem[0].name}{' '}
+                                    {podsData[key].podsItem[0].controller_kind}{' '}
+                                </b>
                             </Text>
                         </Table.Cell>
                         <Table.Cell>
@@ -250,7 +254,18 @@ export const PodRows: FunctionComponent<IProps> = ({ podsData, type }) => {
 
                         <Text tag='p'>
                             <b>
-                                Undetected Pods ({podsData['Undetected'].pods}){' '}
+                                {type === 'logs' ? (
+                                    <>
+                                        Applications with undetected log types (
+                                        {podsData['Undetected'].pods})
+                                    </>
+                                ) : (
+                                    <>
+                                        Applications with non-supported
+                                        languages ({podsData['Undetected'].pods}
+                                        )
+                                    </>
+                                )}
                             </b>
                         </Text>
                     </Table.Cell>

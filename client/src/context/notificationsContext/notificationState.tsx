@@ -55,7 +55,7 @@ export const NotificationState: React.FC<IProps> = ({ children }) => {
     );
     return (
         <NotificationContext.Provider value={value}>
-            {children}{' '}
+            {children}
         </NotificationContext.Provider>
     );
 };

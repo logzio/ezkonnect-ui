@@ -4,13 +4,15 @@ import { it, describe, expect } from 'vitest';
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import TableHeader from '../../../../../src/components/Table/TableHeader';
+import TableHeaderCell from '../../../../../src/components/Table/TableHeaderCell';
+
 import { TableContext } from '../../../../../src/components/Table/TableWrapper';
 
 describe('TableHeader', () => {
     it('renders the table header with correct styles', () => {
         const { container } = render(
             <TableHeader>
-                <div className='table-header-cell' />
+                <TableHeaderCell>Title</TableHeaderCell>
             </TableHeader>,
         );
         const tableHeaderWrapper = container.firstChild as HTMLElement;
@@ -33,9 +35,9 @@ describe('TableHeader', () => {
         const columnWidths = ['100px', '200px', '150px'];
         const { container } = render(
             <TableHeader>
-                <div className='table-header-cell' />
-                <div className='table-header-cell' />
-                <div className='table-header-cell' />
+                <TableHeaderCell>Title 1</TableHeaderCell>
+                <TableHeaderCell>Title 2</TableHeaderCell>
+                <TableHeaderCell>Title 3</TableHeaderCell>
             </TableHeader>,
             {
                 wrapper: ({ children }) => (
@@ -46,12 +48,11 @@ describe('TableHeader', () => {
             },
         );
 
-        const tableHeaderCells =
-            container.querySelectorAll('.table-header-cell');
+        const tableHeaderCells = container.querySelectorAll('.cell');
 
         expect(tableHeaderCells).toHaveLength(3);
         tableHeaderCells.forEach((cell, index) => {
-            expect(cell).toHaveStyle(`width: ${columnWidths[index]}`);
+            expect(cell).toHaveStyle(`flex: 1 ${columnWidths[index]}`);
         });
     });
 });

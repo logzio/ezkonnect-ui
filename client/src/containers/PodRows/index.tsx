@@ -17,6 +17,9 @@ import {
 import { LogsContext } from '../../context/logsContext/logsContext';
 import { TracesContext } from '../../context/tracesContext/tracesContext';
 import { ReactComponent as IconArrow } from '../../assets/icons/chevron-right-icon.svg';
+import { ReactComponent as IconWarning } from '../../assets/icons/warning.svg';
+
+import Info from '../../components/Info';
 
 const IconArrowWrapper = styled(IconArrow)`
     transform: rotate(270deg);
@@ -111,12 +114,7 @@ export const PodRows: FunctionComponent<IProps> = ({ podsData, type }) => {
                             <LanguageLogo identifier={key} />
                             <Text tag='p'>
                                 <b>{converLanguageName(key)} </b> was detected
-                                in{' '}
-                                <b>
-                                    {podsData[key].pods <= 1
-                                        ? '1 App'
-                                        : `${podsData[key].pods} Apps`}
-                                </b>
+                                in <b>{podsData[key].podsItem[0].name} App </b>
                             </Text>
                         </Table.Cell>
                         <Table.Cell>
@@ -172,16 +170,26 @@ export const PodRows: FunctionComponent<IProps> = ({ podsData, type }) => {
                                     dataIndifier={key}
                                 />
                             ) : (
-                                <RowContoller
-                                    dataIndifier={key}
-                                    type={type}
-                                    isTouched={podsData[key].isTouched}
-                                    status={
-                                        podsData[key].podsItem[0][
-                                            `${type}_instrumented`
-                                        ]
-                                    }
-                                />
+                                <>
+                                    <RowContoller
+                                        dataIndifier={key}
+                                        type={type}
+                                        isTouched={podsData[key].isTouched}
+                                        status={
+                                            podsData[key].podsItem[0][
+                                                `${type}_instrumented`
+                                            ]
+                                        }
+                                    />
+                                    {podsData[key].podsItem[0]
+                                        .opentelemetry_preconfigured ? (
+                                        <Info message='Opentelemetry instrumentation resources were detected in this application environment.'>
+                                            <IconWarning />
+                                        </Info>
+                                    ) : (
+                                        ''
+                                    )}
+                                </>
                             )}
                         </Table.Cell>
                     </Table.TableRow>

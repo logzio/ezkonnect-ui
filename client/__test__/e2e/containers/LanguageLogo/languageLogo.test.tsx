@@ -6,11 +6,9 @@ import LanguageLogo from '../../../../src/containers/LanguageLogo';
 
 describe('LanguageLogo', () => {
     it('renders the correct language logo based on the identifier', () => {
-        const { container } = render(<LanguageLogo identifier='python' />);
-        const pythonLogo = container.querySelector(
-            'img[src="python-logo.svg"]',
-        );
+        const { getByAltText } = render(<LanguageLogo identifier='python' />);
 
+        const pythonLogo = getByAltText('python');
         expect(pythonLogo).toBeInTheDocument();
     });
 

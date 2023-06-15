@@ -1,6 +1,7 @@
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, useRef } from 'react';
 import styled from 'styled-components';
 import { ReactComponent as TooltipIcon } from '../../assets/icons/tooltip.svg';
+import { positionTooltip } from '../../utils/positionTooltip';
 
 interface IProps {
     message: string;
@@ -20,19 +21,27 @@ const TooltipWrapperText = styled.span`
     display: none;
     max-width: 180px;
     top: 20px;
+    background: #1a4251;
 `;
 const TooltipWrapper = styled.div`
     display: flex;
     align-items: center;
     margin-left: 5px;
+
     &:hover .tooltip-message {
         display: flex;
-        background: #1a4251;
     }
 `;
+
 const Tooltip: FunctionComponent<IProps> = ({ message }) => {
+    const ref = useRef(null);
+
     return (
-        <TooltipWrapper data-testid='tooltip'>
+        <TooltipWrapper
+            ref={ref}
+            onMouseEnter={() => positionTooltip(ref.current)}
+            data-testid='tooltip'
+        >
             <TooltipIcon data-testid='icon' />
             <TooltipWrapperText
                 data-testid='tooltip-message'

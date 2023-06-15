@@ -1,5 +1,5 @@
-import React, { FunctionComponent } from 'react';
-
+import React, { FunctionComponent, useRef } from 'react';
+import { positionTooltip } from '../../utils/positionTooltip';
 import styled from 'styled-components';
 
 const ButtonYellow = styled.button`
@@ -95,6 +95,8 @@ const Button: FunctionComponent<IProps> = ({
     disabled,
     hintMessage,
 }) => {
+    const ref = useRef(null);
+
     const renderButton = () => {
         switch (color) {
             case 'yellow':
@@ -127,20 +129,21 @@ const Button: FunctionComponent<IProps> = ({
         }
     };
 
-    return (
-        <ButtonWrapper>
+    return hintMessage ? (
+        <ButtonWrapper
+            ref={ref}
+            onMouseEnter={() => positionTooltip(ref.current, 35)}
+        >
             {renderButton()}
-            {hintMessage ? (
-                <HintMessageWrapper
-                    data-testid='hint-message'
-                    className='hint-message'
-                >
-                    {hintMessage}
-                </HintMessageWrapper>
-            ) : (
-                ''
-            )}
+            <HintMessageWrapper
+                data-testid='hint-message'
+                className='hint-message'
+            >
+                {hintMessage}
+            </HintMessageWrapper>
         </ButtonWrapper>
+    ) : (
+        <ButtonWrapper>{renderButton()}</ButtonWrapper>
     );
 };
 

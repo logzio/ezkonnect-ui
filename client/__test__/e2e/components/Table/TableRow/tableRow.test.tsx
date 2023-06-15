@@ -13,7 +13,7 @@ describe('TableRow', () => {
         expect(tableRowWrapper).toBeInTheDocument();
         expect(tableRowWrapper).toHaveStyle('display: flex');
         expect(tableRowWrapper).toHaveStyle(
-            'border-bottom: 1px solid rgb(216, 216, 216)',
+            'border-bottom: 1px solid rgb(216,216,216)',
         );
         expect(tableRowWrapper).toHaveStyle('justify-content: space-between');
         expect(tableRowWrapper).toHaveStyle('align-items: stretch');

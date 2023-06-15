@@ -40,7 +40,7 @@ const TitleWrapper = styled.span`
 const TableHeaderCell: FunctionComponent<IProps> = ({ children, ...props }) => {
     return (
         <TableHeaderCellWrapper className='cell' {...props}>
-            <TitleWrapper>{children}</TitleWrapper>
+            <TitleWrapper className='cell-title'>{children}</TitleWrapper>
         </TableHeaderCellWrapper>
     );
 };

@@ -75,6 +75,9 @@ const ArrowIcon = styled(SelectIcon)`
     &.animate {
         transform: rotate(180deg);
     }
+    &.disabledIcon {
+        display: none;
+    }
 `;
 
 const DropdownListWrapper = styled.div`
@@ -218,12 +221,19 @@ const InputSelect: FunctionComponent<IProps> = ({
                 ) : (
                     <Tag color='#f7c15c'>{currentValue}</Tag>
                 )}{' '}
-                <ArrowIcon className={`${openDropDown ? 'animate' : ''}`} />
+                <ArrowIcon
+                    className={`${openDropDown ? 'animate' : ''} ${
+                        fieldDisabled ? 'disabledIcon' : ''
+                    }`}
+                />
             </LabelSelect>
             <DropdownListWrapper className={`${openDropDown ? 'open' : ''}`}>
                 <InputSearchWrapper ref={ref}>
-                    <FormWrapper onSubmit={onSubmitInput}>
-                        <InputSelectElement ref={elementRef} />
+                    <FormWrapper title='Select Form' onSubmit={onSubmitInput}>
+                        <InputSelectElement
+                            title='Select Input'
+                            ref={elementRef}
+                        />
                     </FormWrapper>
                     <SearchIconWrapper />
                 </InputSearchWrapper>

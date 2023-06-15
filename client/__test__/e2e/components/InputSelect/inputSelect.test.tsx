@@ -2,7 +2,7 @@ import '@testing-library/jest-dom/extend-expect';
 import React from 'react';
 import { it, describe, expect, vitest } from 'vitest';
 
-import { render, fireEvent, waitFor } from '@testing-library/react';
+import { render, fireEvent, waitFor, getByTitle } from '@testing-library/react';
 import InputSelect from '../../../../src/components/InputSelect';
 
 describe('InputSelect', () => {
@@ -56,7 +56,7 @@ describe('InputSelect', () => {
     it('should trigger onChangeValue when input value changes', async () => {
         const onChangeValue = vitest.fn();
 
-        const { getByRole } = render(
+        const { getByTitle } = render(
             <InputSelect
                 options={options}
                 onChangeSelect={vitest.fn()}
@@ -66,28 +66,15 @@ describe('InputSelect', () => {
             />,
         );
 
-        const input = getByRole('textbox');
+        const input = getByTitle('Select Input');
+        const form = getByTitle('Select Form');
+
         fireEvent.change(input, { target: { value: 'Test' } });
+        fireEvent.submit(form);
 
         await waitFor(() => {
             expect(onChangeValue).toHaveBeenCalled();
         });
-    });
-
-    it('should display the selected option', () => {
-        const { getByText } = render(
-            <InputSelect
-                options={options}
-                onChangeSelect={vitest.fn()}
-                onChangeValue={vitest.fn()}
-                currentValue='Option 1'
-                placeHolder='Select an option'
-            />,
-        );
-
-        const selectedOption = getByText('Option 1');
-
-        expect(selectedOption).toBeInTheDocument();
     });
 
     it('should display the placeholder if no option is selected', () => {

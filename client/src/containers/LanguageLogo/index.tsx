@@ -23,28 +23,28 @@ const LanguageLogo: FunctionComponent<IProps> = ({ identifier }) => {
         case 'python':
             return (
                 <LanguageWrapper>
-                    <ImgWrapper src={pythonImgUrl} /> -
+                    <ImgWrapper alt='python' src={pythonImgUrl} /> -
                 </LanguageWrapper>
             );
 
         case 'java':
             return (
                 <LanguageWrapper>
-                    <ImgWrapper src={javaImgUrl} /> -
+                    <ImgWrapper alt='java' src={javaImgUrl} /> -
                 </LanguageWrapper>
             );
 
         case 'javascript':
             return (
                 <LanguageWrapper>
-                    <ImgWrapper src={nodejsImgUrl} /> -
+                    <ImgWrapper alt='javascript' src={nodejsImgUrl} /> -
                 </LanguageWrapper>
             );
 
         case 'dotnet':
             return (
                 <LanguageWrapper>
-                    <ImgWrapper src={dotnetImgUrl} /> -
+                    <ImgWrapper alt='dotnet' src={dotnetImgUrl} /> -
                 </LanguageWrapper>
             );
 

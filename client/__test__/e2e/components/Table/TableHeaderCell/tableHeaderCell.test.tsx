@@ -28,7 +28,7 @@ describe('TableHeaderCell', () => {
     it('renders the title with correct styles', () => {
         const { container } = render(<TableHeaderCell>Title</TableHeaderCell>);
         const titleWrapper = container.querySelector(
-            '.title-wrapper',
+            '.cell-title',
         ) as HTMLElement;
 
         expect(titleWrapper).toBeInTheDocument();
@@ -40,7 +40,7 @@ describe('TableHeaderCell', () => {
         expect(titleWrapper).toHaveStyle('line-height: 1.3');
         expect(titleWrapper).toHaveStyle('word-break: break-word');
         expect(titleWrapper).toHaveStyle('font-weight: 500');
-        expect(titleWrapper).toHaveStyle('color: black');
+        expect(titleWrapper).toHaveStyle('color: rgb(0, 0, 0)');
         expect(titleWrapper).toHaveStyle('min-width: 0px');
         expect(titleWrapper).toHaveStyle('font-size: 14px');
         expect(titleWrapper).toHaveTextContent('Title');

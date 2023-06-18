@@ -126,7 +126,8 @@ export const LogsState: React.FC<IProps> = ({ children }) => {
             const podUpdated = state.logsPods['Undetected'].podsItem.find(
                 (pod: IPod) => pod.name === podName,
             );
-            podUpdated.log_type = isDelete ? '' : podUpdated.log_type;
+            // podUpdated.log_type = isDelete ? '' : podUpdated.log_type;
+            console.log(isDelete, podUpdated.log_type);
             if (podUpdated) {
                 try {
                     const podItemToSend: IItemToSend = {

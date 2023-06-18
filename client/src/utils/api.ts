@@ -1,11 +1,11 @@
 import { IItemToSend } from "./interfaces";
 
-const BASE_URL = '/';
+const BASE_URL = 'http://localhost:8080/';
 
 const settings = {
-	getPodsURL: "api/v1/state",
-	updateTracePodsURL: "api/v1/annotate/traces",
-	updateLogTypePodsUrl: "api/v1/annotate/logs"
+	getPodsURL: "api/test/state",
+	updateTracePodsURL: "api/test/annotate/traces",
+	updateLogTypePodsUrl: "api/test/annotate/logs"
 }
 
 /**

@@ -9,6 +9,7 @@ COPY ./ ./
 
 WORKDIR /app/client
 
+
 RUN npm install --silent 
 RUN	npm run build
 

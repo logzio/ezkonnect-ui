@@ -84,10 +84,14 @@ export const LogsReducer = (currentState: ILogsContextState, action: any): ILogs
 			}
 			const cBulkPodList = { ...currentState.logsPods[action.payload.applicationName] };
 			const uBulkState = { ...currentState.logsPods };
-			cBulkPodList.log_type_default = action.payload.log_type;
+			let logType = action.payload.log_type;
+			if (action.payload.log_type === '') {
+				logType = action.payload.applicationName;
+			}
+			cBulkPodList.log_type_default = logType;
 			const uPods = cBulkPodList.podsItem.map((pod: IPod) => {
 
-				pod.log_type = action.payload.log_type;
+				pod.log_type = logType;
 				return pod
 			})
 			cBulkPodList.podsItem = [...uPods];

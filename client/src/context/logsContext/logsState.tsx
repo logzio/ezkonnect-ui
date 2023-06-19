@@ -36,12 +36,13 @@ export const LogsState: React.FC<IProps> = ({ children }) => {
         const parsedLogs = parseHandler(podsItems, 'application');
 
         const allLogTypes = getAllLogTypes(podsItems);
-        dispatch({ type: SET_LOG_PODS, payload: parsedLogs });
-        dispatch({ type: GET_LOG_LIST, payload: allLogTypes });
+        dispatch({ type: SET_LOG_PODS, payload: { logsPods: parsedLogs } });
+        dispatch({ type: GET_LOG_LIST, payload: { allLogTypes } });
     };
 
     const addLogTypeToTheList = (logTypeName: string) => {
-        dispatch({ type: ADD_LOG_TYPE, payload: logTypeName });
+        console.log(logTypeName);
+        dispatch({ type: ADD_LOG_TYPE, payload: { logTypeName } });
     };
 
     const updateLogTypePod = (podName: string, log_type: string) => {
@@ -127,7 +128,6 @@ export const LogsState: React.FC<IProps> = ({ children }) => {
                 (pod: IPod) => pod.name === podName,
             );
             // podUpdated.log_type = isDelete ? '' : podUpdated.log_type;
-            console.log(isDelete, podUpdated.log_type);
             if (podUpdated) {
                 try {
                     const podItemToSend: IItemToSend = {

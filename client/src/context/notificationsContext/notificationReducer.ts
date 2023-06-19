@@ -4,9 +4,21 @@ import {
 	REMOVE_NOTIFICATION,
 
 } from '../types';
-import { IContextState, INotification } from '../../utils/interfaces';
+import { IContextState, INotification, NotificationStatus } from '../../utils/interfaces';
 
-export const NotificationReducer = (currentState: IContextState, action: any): IContextState => {
+interface Ipayload {
+	notification?: string;
+	typeNotification?: NotificationStatus;
+	notificationId: number | string;
+}
+
+interface IAction {
+	type: string;
+	payload: Ipayload;
+
+}
+
+export const NotificationReducer = (currentState: IContextState, action: IAction): IContextState => {
 	switch (action.type) {
 
 
@@ -14,8 +26,8 @@ export const NotificationReducer = (currentState: IContextState, action: any): I
 
 			const updatedNotifications = [...currentState.notifications];
 			updatedNotifications.push({
-				message: action.payload.notification,
-				type: action.payload.typeNotification,
+				message: action.payload.notification ? action.payload.notification : '',
+				type: action.payload.typeNotification ? action.payload.typeNotification : NotificationStatus.Info,
 				notificationId: action.payload.notificationId
 			});
 			return {
@@ -26,7 +38,7 @@ export const NotificationReducer = (currentState: IContextState, action: any): I
 		case REMOVE_NOTIFICATION: {
 
 			const findIndex = currentState.notifications.findIndex(
-				(notif: INotification) => notif.notificationId === action.payload.tempId,
+				(notif: INotification) => notif.notificationId === action.payload.notificationId,
 			);
 			let updRemovedNotification: INotification[] = [];
 			if (currentState.notifications.length === 1) {

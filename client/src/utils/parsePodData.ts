@@ -1,4 +1,4 @@
-import { IPod, IParsedLogsData } from "./interfaces";
+import { IPod, IParsedPodsData } from "./interfaces";
 
 /**
  * Function recieve a array of Pods from API, extracting all possible log types
@@ -42,12 +42,12 @@ export const getAllServiceNames = (podsArray: IPod[]): string[] => {
  * @param  {string} filterFieldPrimary
  * @param  {string} filterFieldSecondary
  * @param  {string} filterFieldThird
- * @returns IParsedLogsData
+ * @returns IParsedPodsData
  */
-export const multipleParseHandler = (podsArray: IPod[], filterFieldPrimary: string, filterFieldSecondary: string, filterFieldThird: string): IParsedLogsData => {
+export const multipleParseHandler = (podsArray: IPod[], filterFieldPrimary: string, filterFieldSecondary: string, filterFieldThird: string): IParsedPodsData => {
 	const allLogTypes = getAllLogTypes(podsArray);
 
-	const parsedData: IParsedLogsData = {};
+	const parsedData: IParsedPodsData = {};
 
 	podsArray.forEach(data => {
 		if (data[filterFieldPrimary] != null) {
@@ -108,13 +108,13 @@ export const multipleParseHandler = (podsArray: IPod[], filterFieldPrimary: stri
  * if it's not exists set is as Undetected
  * @param  {IPod[]} podsArray
  * @param  {string} filterField
- * @returns IParsedLogsData
+ * @returns IParsedPodsData
  */
-export const parseHandler = (podsArray: IPod[], filterField: string): IParsedLogsData => {
+export const parseHandler = (podsArray: IPod[], filterField: string): IParsedPodsData => {
 
 	const allLogTypes = getAllLogTypes(podsArray);
 	const allServiceNames = getAllServiceNames(podsArray);
-	const parsedData: IParsedLogsData = {};
+	const parsedData: IParsedPodsData = {};
 	podsArray.forEach(data => {
 		if (data[filterField] != null) {
 			if (parsedData[data[filterField]]) {

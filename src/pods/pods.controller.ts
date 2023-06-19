@@ -11,13 +11,20 @@ class PodController implements Controller {
 		this.initializeRoutes();
 	}
 
+	/**
+	 * Method that initiale routes that can be used for frontend
+	 */
 	private initializeRoutes() {
 		this.router.get(`${this.path}/state`, this.getAllPods);
 		this.router.post(`${this.path}/annotate/traces`, this.updateTraces);
 		this.router.post(`${this.path}/annotate/logs`, this.updateLogs);
 
 	}
-
+	/**
+	 * @param  {express.Request} req
+	 * @param  {express.Response} res
+	 * @param  {express.NextFunction} next
+	 */
 	private getAllPods = async (req: express.Request, res: express.Response, next: express.NextFunction) => {
 		try {
 			const content = await axios({
@@ -40,6 +47,11 @@ class PodController implements Controller {
 		}
 	};
 
+	/**
+	 * @param  {express.Request} req
+	 * @param  {express.Response} res
+	 * @param  {express.NextFunction} next
+	 */
 	private updateLogs = async (req: express.Request, res: express.Response, next: express.NextFunction) => {
 		try {
 			const updatedLogs = req.body;
@@ -62,6 +74,11 @@ class PodController implements Controller {
 		}
 	}
 
+	/**
+	 * @param  {express.Request} req
+	 * @param  {express.Response} res
+	 * @param  {express.NextFunction} next
+	 */
 	private updateTraces = async (req: express.Request, res: express.Response, next: express.NextFunction) => {
 		try {
 			const updatedTraces = req.body;

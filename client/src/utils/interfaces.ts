@@ -35,7 +35,7 @@ export interface IParsedItem {
 	service_name_default?: string;
 	logTypeOnSelect?: string;
 }
-export interface IParsedLogsData {
+export interface IParsedPodsData {
 	[key: string]: IParsedItem;
 
 }
@@ -48,8 +48,8 @@ export enum NotificationStatus {
 }
 export interface INotification {
 	message: string;
-	type: NotificationStatus.Success;
-	notificationId: number;
+	type: NotificationStatus;
+	notificationId: number | string;
 }
 
 export type ListType = {
@@ -63,11 +63,11 @@ export interface IContextState {
 }
 
 export interface ILogsContextState {
-	logsPods: IParsedItem[] | null,
+	logsPods: IParsedPodsData | null,
 	logList: ListType[],
 
 }
 export interface ITracesContextState {
-	tracesPods: IParsedItem[] | null,
+	tracesPods: IParsedPodsData | null,
 	serviceNameList: ListType[];
 }

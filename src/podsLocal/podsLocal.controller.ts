@@ -13,6 +13,9 @@ class PodLocalController implements Controller {
 		this.initializeRoutes();
 	}
 
+	/**
+	 * Method that initiale routes that can be used for frontend
+	 */
 	private initializeRoutes() {
 		this.router.get(`${this.path}/state`, this.getAllPods);
 		this.router.post(`${this.path}/annotate/traces`, this.updateTraces);
@@ -20,6 +23,11 @@ class PodLocalController implements Controller {
 
 	}
 
+	/**
+	 * @param  {express.Request} req
+	 * @param  {express.Response} res
+	 * @param  {express.NextFunction} next
+	 */
 	private getAllPods = async (req: express.Request, res: express.Response, next: express.NextFunction) => {
 		try {
 
@@ -34,6 +42,11 @@ class PodLocalController implements Controller {
 		}
 	};
 
+	/**
+	 * @param  {express.Request} req
+	 * @param  {express.Response} res
+	 * @param  {express.NextFunction} next
+	 */
 	private updateLogs = async (req: express.Request, res: express.Response, next: express.NextFunction) => {
 		try {
 			const content = JSON.parse(
@@ -83,15 +96,31 @@ class PodLocalController implements Controller {
 			next(err)
 		}
 	}
-
+	/**
+	 * @param  {express.Request} req
+	 * @param  {express.Response} res
+	 * @param  {express.NextFunction} next
+	 */
 	private updateTraces = async (req: express.Request, res: express.Response, next: express.NextFunction) => {
 		try {
 			const content = JSON.parse(
 				fs.readFileSync(path.join(__dirname, '..', 'data.json'), 'utf8'),
 			);
+			let updatedPods;
+			if (req.body.length > 1) {
+				updatedPods = [...content];
+			} else {
+				updatedPods = content.map((pod: IPod) => {
+					if (pod.name === req.body[0].name) {
+						pod.traces_instrumented = req.body[0].action === 'delete' ? false : true;
+					}
+
+					return pod;
+				});
+			}
 			fs.writeFile(
 				path.join(__dirname, '..', 'data.json'),
-				JSON.stringify(content),
+				JSON.stringify(updatedPods),
 				function writeJSON(err) {
 					if (err) return console.log(err);
 					console.log(JSON.stringify(content));

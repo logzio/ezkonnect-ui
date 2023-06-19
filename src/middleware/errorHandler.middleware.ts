@@ -5,6 +5,13 @@ interface IError {
 	message?: string;
 }
 
+
+/**
+ * @param  {IError} err
+ * @param  {Request} req
+ * @param  {Response} res
+ * @param  {NextFunction} next
+ */
 const errorHandler = (err: IError, req: Request, res: Response, next: NextFunction) => {
 	const statusCode = err.statusCode || 500;
 	const message = statusCode === 500 ? 'An error has occurred on the server' : err.message;

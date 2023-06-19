@@ -1,5 +1,5 @@
 import { it, expect, describe } from 'vitest';
-import { IPod, IParsedLogsData } from '../../../src/utils/interfaces';
+import { IPod, IParsedPodsData } from '../../../src/utils/interfaces';
 import { podsArray, typeLogsArray, parsedDataMultiple, parsedDataOneFilter } from '../../mock/data';
 import { getAllLogTypes, multipleParseHandler, parseHandler, displayNamespaces } from '../../../src/utils/parsePodData';
 
@@ -30,7 +30,7 @@ describe('multipleParseHandler', () => {
 		const filterFieldThird = 'container_name';
 
 
-		const expected: IParsedLogsData = parsedDataMultiple
+		const expected: IParsedPodsData = parsedDataMultiple
 
 		const result = multipleParseHandler(podsArray, filterFieldPrimary, filterFieldSecondary, filterFieldThird);
 
@@ -43,7 +43,7 @@ describe('multipleParseHandler', () => {
 		const filterFieldSecondary = 'namespace';
 		const filterFieldThird = 'container_name';
 
-		const expected: IParsedLogsData = {};
+		const expected: IParsedPodsData = {};
 
 		const result = multipleParseHandler(podsArray, filterFieldPrimary, filterFieldSecondary, filterFieldThird);
 
@@ -56,7 +56,7 @@ describe('parseHandler', () => {
 
 		const filterField = 'application';
 
-		const expected: IParsedLogsData = parsedDataOneFilter;
+		const expected: IParsedPodsData = parsedDataOneFilter;
 		const result = parseHandler(podsArray, filterField);
 
 		expect(result).toEqual(expected);
@@ -66,7 +66,7 @@ describe('parseHandler', () => {
 		const podsArray: IPod[] = [];
 		const filterField = 'application';
 
-		const expected: IParsedLogsData = {};
+		const expected: IParsedPodsData = {};
 
 		const result = parseHandler(podsArray, filterField);
 

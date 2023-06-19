@@ -2,45 +2,55 @@ import {
 	SET_TRACES_PODS,
 	UPDATE_POD,
 	UPDATE_POD_BULK,
-	GET_SERVICE_NAME_LIST,
 	ADD_SERVICE_NAME,
 	ADD_SERVICE_NAME_BULK
 } from '../types';
 import { IPod, ITracesContextState } from '../../utils/interfaces';
-import { convertArrayToSelectOption } from '../../utils/covert';
 
 
-export const TracesReducer = (currentState: ITracesContextState, action: any): ITracesContextState => {
+interface Ipayload {
+	applicationName?: string;
+	serviceName?: string;
+	dataIndifier?: string;
+	type?: string;
+	typeAPI?: string;
+	dataIndifierAPI?: string;
+	statusAPI?: boolean;
+}
+
+interface IAction {
+	type: string;
+	payload: Ipayload;
+
+}
+
+
+export const TracesReducer = (currentState: ITracesContextState, action: IAction): ITracesContextState => {
 	switch (action.type) {
 
-		case GET_SERVICE_NAME_LIST: {
-			const convertedServiceNames = convertArrayToSelectOption(action.payload);
-
-			return { ...currentState, serviceNameList: [...convertedServiceNames] }
-
-		}
 		case ADD_SERVICE_NAME: {
-			if (!currentState.tracesPods) {
+			const { applicationName, serviceName } = action.payload;
+			if (!currentState.tracesPods || !applicationName || !serviceName) {
 				return { ...currentState }
 			}
-			const updatedList = [...currentState.tracesPods[action.payload.applicationName].all_service_names];
+			const updatedList = [...currentState.tracesPods[applicationName].all_service_names];
 			const chenckupIndex = updatedList.findIndex(item => item === action.payload.serviceName);
 			if (chenckupIndex > 0) {
 				return currentState
 			}
-			updatedList.push(action.payload.serviceName);
+			updatedList.push(serviceName);
 
-			const currentBulkPodList = { ...currentState.tracesPods[action.payload.applicationName] };
+			const currentBulkPodList = { ...currentState.tracesPods[applicationName] };
 			const updatedBulkState = { ...currentState.tracesPods };
-			currentBulkPodList.service_name_default = action.payload.serviceName;
+			currentBulkPodList.service_name_default = serviceName;
 			currentBulkPodList.all_service_names = [...updatedList];
 			const updatedPods = currentBulkPodList.podsItem.map((pod: IPod) => {
 
-				pod.container_name = action.payload.serviceName;
+				pod.container_name = serviceName;
 				return pod
 			})
 			currentBulkPodList.podsItem = [...updatedPods];
-			updatedBulkState[action.payload.applicationName] = { ...currentBulkPodList }
+			updatedBulkState[applicationName] = { ...currentBulkPodList }
 			return {
 				...currentState, tracesPods: updatedBulkState
 			};
@@ -53,20 +63,21 @@ export const TracesReducer = (currentState: ITracesContextState, action: any): I
 			}
 
 		case ADD_SERVICE_NAME_BULK: {
-			if (!currentState.tracesPods) {
+			const { applicationName, serviceName } = action.payload;
+			if (!currentState.tracesPods || !applicationName || !serviceName) {
 				return { ...currentState }
 			}
-			const currentBulkPodList = { ...currentState.tracesPods[action.payload.applicationName] };
+			const currentBulkPodList = { ...currentState.tracesPods[applicationName] };
 			const updatedBulkState = { ...currentState.tracesPods };
 			currentBulkPodList.service_name_default = action.payload.serviceName;
 
 			const updatedPods = currentBulkPodList.podsItem.map((pod: IPod) => {
 
-				pod.container_name = action.payload.serviceName;
+				pod.container_name = serviceName;
 				return pod
 			})
 			currentBulkPodList.podsItem = [...updatedPods];
-			updatedBulkState[action.payload.applicationName] = { ...currentBulkPodList }
+			updatedBulkState[applicationName] = { ...currentBulkPodList }
 			return {
 				...currentState, tracesPods: updatedBulkState
 			};
@@ -74,6 +85,9 @@ export const TracesReducer = (currentState: ITracesContextState, action: any): I
 		case UPDATE_POD: {
 
 			const { type, dataIndifier } = action.payload;
+			if (!dataIndifier) {
+				return { ...currentState }
+			}
 			const currBulkPod = { ...currentState[`${type}Pods`][dataIndifier] };
 			const updBulkPodState = { ...currentState[`${type}Pods`] };
 
@@ -87,6 +101,10 @@ export const TracesReducer = (currentState: ITracesContextState, action: any): I
 		case UPDATE_POD_BULK: {
 
 			const { typeAPI, dataIndifierAPI, statusAPI } = action.payload;
+
+			if (!dataIndifierAPI) {
+				return { ...currentState };
+			}
 			const currBulkPodAPI = { ...currentState[`${typeAPI}Pods`][dataIndifierAPI] };
 			const updBulkPodStateAPI = { ...currentState[`${typeAPI}Pods`] };
 

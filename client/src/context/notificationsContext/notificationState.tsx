@@ -18,7 +18,7 @@ export const NotificationState: React.FC<IProps> = ({ children }) => {
         dispatch({
             type: REMOVE_NOTIFICATION,
             payload: {
-                tempId: id,
+                notificationId: id,
             },
         });
     };
@@ -39,7 +39,7 @@ export const NotificationState: React.FC<IProps> = ({ children }) => {
             dispatch({
                 type: REMOVE_NOTIFICATION,
                 payload: {
-                    tempId: temporaryId,
+                    notificationId: temporaryId,
                 },
             });
         }, 10000);

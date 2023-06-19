@@ -10,6 +10,11 @@ class App {
 	public app: express.Application;
 	public port: number;
 
+
+	/**
+	 * @param  {Controller[]} controllers
+	 * @param  {number} port
+	 */
 	constructor(controllers: Controller[], port: number) {
 		this.app = express();
 		this.port = port;
@@ -18,6 +23,8 @@ class App {
 		this.initializeErrorHandling();
 	}
 
+	/**
+	 */
 	private initializeMiddlewares() {
 		this.app.use(cors({
 			origin: '*'
@@ -29,12 +36,15 @@ class App {
 
 	}
 
+	/**
+	 */
 	private initializeErrorHandling() {
 		this.app.use(errorHandler);
 	}
 
-
-
+	/**
+	 * @param  {Controller[]} controllers
+	 */
 	private initializeControllers(controllers: Controller[]) {
 		controllers.forEach((controller: Controller) => {
 			this.app.use('/', controller.router);

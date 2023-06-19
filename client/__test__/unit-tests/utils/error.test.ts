@@ -1,4 +1,4 @@
-import { it, expect, describe, beforeEach, vitest } from 'vitest';
+import { it, expect, describe } from 'vitest';
 import { getErrorMessage } from '../../../src/utils/error';
 
 describe('getErrorMessage', () => {

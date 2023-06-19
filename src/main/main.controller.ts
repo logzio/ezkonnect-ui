@@ -15,6 +15,10 @@ class MainController implements Controller {
 		this.router.get(`${this.path}`, this.getHomepage);
 	}
 
+	/**
+	 * @param  {express.Request} req
+	 * @param  {express.Response} res
+	 */
 	private getHomepage = (req: express.Request, res: express.Response) => {
 		res.sendFile(path.join(__dirname, '../client/dist/index.html'));
 	};

@@ -8,20 +8,43 @@ import {
 	ADD_LOG_TYPE_TO_LIST,
 
 } from '../types';
-import { IPod, ILogsContextState, } from '../../utils/interfaces';
+import { IPod, ILogsContextState, IParsedPodsData, } from '../../utils/interfaces';
 import { convertArrayToSelectOption } from '../../utils/covert';
 
+interface IPayload {
+	log_type?: string;
+	podName?: string;
+	applicationName?: string;
+	bulkStatus?: boolean;
+	logTypeName?: string;
+	allLogTypes?: string[]
+	logsPods?: IParsedPodsData;
+}
 
 
-export const LogsReducer = (currentState: ILogsContextState, action: any): ILogsContextState => {
+interface IAction {
+	type: string;
+	payload: IPayload;
+}
+
+
+export const LogsReducer = (currentState: ILogsContextState, action: IAction): ILogsContextState => {
 	switch (action.type) {
 		case SET_LOG_PODS: {
-			return { ...currentState, logsPods: action.payload };
+
+			const { logsPods } = action.payload;
+			if (!logsPods) {
+				return { ...currentState };
+			}
+			return { ...currentState, logsPods: { ...logsPods } };
 		}
 
 		case ADD_LOG_TYPE: {
-
-			const convertedType = convertArrayToSelectOption([action.payload])[0];
+			const { logTypeName } = action.payload;
+			if (!logTypeName) {
+				return { ...currentState }
+			}
+			const convertedType = convertArrayToSelectOption([logTypeName])[0];
 			const updatedList = [...currentState.logList];
 			const chenckupIndex = updatedList.findIndex(item => item.name === convertedType.name);
 			if (chenckupIndex > 0) {
@@ -32,7 +55,11 @@ export const LogsReducer = (currentState: ILogsContextState, action: any): ILogs
 		}
 		case GET_LOG_LIST:
 			{
-				const convertedTypes = convertArrayToSelectOption(action.payload);
+				const { allLogTypes } = action.payload;
+				if (!allLogTypes || allLogTypes?.length === 0) {
+					return { ...currentState }
+				}
+				const convertedTypes = convertArrayToSelectOption(allLogTypes);
 				return { ...currentState, logList: [...convertedTypes] };
 			}
 		case UPDATE_LOG_TYPE: {
@@ -58,9 +85,10 @@ export const LogsReducer = (currentState: ILogsContextState, action: any): ILogs
 			};
 		}
 		case ADD_LOG_TYPE_TO_LIST: {
-			if (!currentState.logsPods) {
+			if (!currentState.logsPods || !action.payload.applicationName) {
 				return { ...currentState }
 			}
+
 			const currentBulkPodList = { ...currentState.logsPods[action.payload.applicationName] };
 			const updatedBulkState = { ...currentState.logsPods };
 			currentBulkPodList.logTypeOnSelect = action.payload.log_type;
@@ -79,7 +107,7 @@ export const LogsReducer = (currentState: ILogsContextState, action: any): ILogs
 		}
 
 		case ADD_BULK_LOG_TYPE: {
-			if (!currentState.logsPods) {
+			if (!currentState.logsPods || !action.payload.applicationName) {
 				return { ...currentState }
 			}
 			const cBulkPodList = { ...currentState.logsPods[action.payload.applicationName] };
@@ -102,10 +130,11 @@ export const LogsReducer = (currentState: ILogsContextState, action: any): ILogs
 			};
 		}
 		case UPDATE_BULK_POD_LOG: {
-			if (!currentState.logsPods) {
+			const { bulkStatus, applicationName, log_type } = action.payload;
+			if (!currentState.logsPods || !applicationName) {
 				return { ...currentState }
 			}
-			const { bulkStatus, applicationName, log_type } = action.payload;
+
 			const currBulkPodList = { ...currentState.logsPods[applicationName] };
 			const updBulkState = { ...currentState.logsPods };
 			if (bulkStatus) {
